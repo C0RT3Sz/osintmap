@@ -1,0 +1,25 @@
+ ██████╗  ███████╗ ██╗ ███╗   ██╗ ████████╗ ███╗   ███╗  █████╗  ██████╗ 
+██╔═══██╗ ██╔════╝ ██║ ████╗  ██║ ╚══██╔══╝ ████╗ ████║ ██╔══██╗ ██╔══██╗
+██║   ██║ ███████╗ ██║ ██╔██╗ ██║    ██║    ██╔████╔██║ ███████║ █████╔╝
+██║   ██║ ╚════██║ ██║ ██║╚██╗██║    ██║    ██║╚██╔╝██║ ██╔══██║ ██╔═══╝ 
+╚██████╔╝ ███████║ ██║ ██║ ╚████║    ██║    ██║ ╚═╝ ██║ ██║  ██║ ██║     
+ ╚═════╝  ╚══════╝ ╚═╝ ╚═╝  ╚═══╝    ╚═╝    ╚═╝     ╚═╝ ╚═╝  ╚═╝ ╚═╝     
+                                                                        
+                            Criado por C0RT3S                           
+
+┌───────────────────────────────────────────────────────────────────────┐
+│                         Ferramenta de OSINT                           │
+├───────────────────────────────────────────────────────────────────────┤
+│ Esta ferramenta tem como objetivo centralizar buscas OSINT em dados   │
+│ como nome, telefone, e-mail, CPF e muito mais. Ela automatiza o uso   │
+│ de motores de busca e sites públicos, além de integrar ferramentas    │
+│ externas e APIs para maximizar a coleta de informações.               │
+│                                                                       │
+│ ⚙ Principais funcionalidades:                                         │
+│   • Consulta a buscadores (Google, Bing, DuckDuckGo...)               │
+│   • Busca em sites públicos (gov, consultas CPF/telefone/email...)    │
+│   • Integração com APIs e ferramentas OSINT externas                  │
+│   • Interface por linha de comando intuitiva                          │
+│                                                                       │
+│ Use o parâmetro `--help` para ver as opções de uso disponíveis.       │
+└───────────────────────────────────────────────────────────────────────┘

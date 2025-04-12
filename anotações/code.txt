@@ -1,0 +1,69 @@
+import argparse
+from googlesearch import search
+import shodan
+import time
+
+def google_dorks(term):
+    dorks = [
+        f'"{term}" site:facebook.com',
+        f'"{term}" site:linkedin.com',
+        f'"{term}" site:pastebin.com',
+        f'"{term}" site:hastebin.com',
+        f'"{term}" site:ghostbin.com',
+        f'"{term}" filetype:pdf',
+        f'"{term}" filetype:xls OR filetype:xlsx',
+        f'"{term}" "cpf"',
+        f'"{term}" "telefone"',
+    ]
+    return dorks
+
+def buscar_google(termo):
+    resultados = []
+    print(f"\n[🔎] Buscando no Google por: {termo}")
+    for dork in google_dorks(termo):
+        print(f"[DORK] {dork}")
+        try:
+            for url in search(dork, num_results=7):
+                resultados.append(f"[{dork}] => {url}")
+                time.sleep(1)
+        except Exception as e:
+            resultados.append(f"[ERRO] {dork}: {e}")
+    return resultados
+
+def buscar_shodan(api_key, termo):
+    print(f"\n[🌐] Buscando no Shodan por: {termo}")
+    resultados = []
+    try:
+        api = shodan.Shodan(api_key)
+        res = api.search(termo)
+        for match in res['matches'][:5]:
+            ip = match.get('ip_str', '')
+            port = match.get('port', '')
+            org = match.get('org', '')
+            resultados.append(f"[SHODAN] IP: {ip}:{port} - {org}")
+    except Exception as e:
+        resultados.append(f"[ERRO SHODAN] {termo}: {e}")
+    return resultados
+
+def salvar_resultados(resultados):
+    with open("resultados_osint.txt", "w", encoding='utf-8') as f:
+        for r in resultados:
+            f.write(r + "\n")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Script OSINT tipo Nmap com Google Dorks e Shodan")
+    parser.add_argument("--tr", help="Termos para pesquisa (separados por vírgula)", required=True)
+    parser.add_argument("--shodan", help="Chave da API Shodan (opcional)", required=False)
+    args = parser.parse_args()
+
+    termos = [t.strip() for t in args.tr.split(",")]
+    todos_resultados = []
+
+    for termo in termos:
+        todos_resultados += buscar_google(termo)
+        if args.shodan:
+            todos_resultados += buscar_shodan(args.shodan, termo)
+
+    salvar_resultados(todos_resultados)
+    print("\n✅ Resultados salvos em 'resultados_osint.txt'")
+

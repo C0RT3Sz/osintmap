@@ -62,3 +62,38 @@ with open("links_e_titulos.csv", mode="w", newline="", encoding="utf-8") as arqu
             print(f"Erro ao acessar {url_completa}: {e}")
 
     print("\nDados armazenados com sucesso em 'links_e_titlutos.csv'.")
+
+    print("\nAnalisando tecnologias da página principal...\n")
+
+    cabecalhos = resposta.headers
+
+    print("Cabeçalhos HTTP encontrados:")
+    for chave, valor in cabecalhos.items():
+        print(f" {chave}: {valor}")
+
+    tecnologias_detectadas = []
+
+if "X-Powered-By" in cabecalhos:
+        tecnologias_detectadas.append(cabecalhos["X-Powered-By"])
+
+if "Server" in cabecalhos:
+        tecnologias_detectadas.append(cabecalhos["Server"])
+
+html = resposta.text.lower()
+if "wp-content" in html:
+        tecnologias_detectadas.append("WordPress")
+
+if "bootstrap" in html:
+        tecnologias_detectadas.append("Bootstrap")
+
+if "jquery" in html:
+        tecnologias_detectadas.append("jQuery")
+
+if tecnologias_detectadas:
+        print("\n Tecnologias possivelmente ultilizadas:")
+        for tech in tecnologias_detectadas:
+            print(" .", tech)
+else:
+        print("\n Nenhuma tecnologia detectada.")
+
+

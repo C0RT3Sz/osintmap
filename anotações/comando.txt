@@ -1,0 +1,28 @@
+🧙‍♂️ Lista de Comandos do Projeto OSINTMAP
+seguir()
+    ➡️ Continua o desenvolvimento do projeto OSINTMAP.
+
+retrospectiva()
+    ➡️ Faz uma retrospectiva geral do que foi feito até agora no projeto.
+
+explicação()
+    ➡️ Explica o último código enviado linha por linha (com parte técnica e analogia de RPG).
+
+revisar_anterior()
+    ➡️ Revisa o código anterior ao último escrito e explica novamente.
+
+basico()
+    ➡️ Explica algum conceito básico de Python.
+
+🧠 Com comandos personalizados (com conteúdo dentro dos parênteses):
+basico(assunto)
+    ➡️ Exemplo: basico(o que é try e except?)
+
+explicação(parte específica do código)
+    ➡️ Exemplo: explicação(me explica soup.title.string)
+
+revisar_anterior(foco específico)
+    ➡️ Exemplo: revisar_anterior(explica só a parte dos prints)
+
+seguir(sem analogia RPG)
+    ➡️ Continua o projeto sem a parte lúdica da explicação.

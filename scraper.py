@@ -1,9 +1,10 @@
 import requests
 import csv
+import re
 from bs4 import BeautifulSoup
 
 
-resposta = requests.get("https://google.com")
+resposta = requests.get("http://testphp.vulnweb.com/")
 soup = BeautifulSoup(resposta.text, "html.parser")
 
 links = soup.find_all("a")
@@ -44,7 +45,7 @@ with open("links_e_titulos.csv", mode="w", newline="", encoding="utf-8") as arqu
 
     print("\nArmazenando dados no arquivo CSV...\n")
     for interno in links_internos:
-        url_completa = "https://google.com" + interno
+        url_completa = "http://testphp.vulnweb.com/" + interno
         try:
             resposta_interna = requests.get(url_completa)
             soup_interna = BeautifulSoup(resposta_interna.text, "html.parser")
@@ -73,27 +74,38 @@ with open("links_e_titulos.csv", mode="w", newline="", encoding="utf-8") as arqu
 
     tecnologias_detectadas = []
 
-if "X-Powered-By" in cabecalhos:
+    if "X-Powered-By" in cabecalhos:
         tecnologias_detectadas.append(cabecalhos["X-Powered-By"])
 
-if "Server" in cabecalhos:
+    if "Server" in cabecalhos:
         tecnologias_detectadas.append(cabecalhos["Server"])
 
-html = resposta.text.lower()
-if "wp-content" in html:
+    html = resposta.text.lower()
+    if "wp-content" in html:
         tecnologias_detectadas.append("WordPress")
 
-if "bootstrap" in html:
+    if "bootstrap" in html:
         tecnologias_detectadas.append("Bootstrap")
 
-if "jquery" in html:
+    if "jquery" in html:
         tecnologias_detectadas.append("jQuery")
 
-if tecnologias_detectadas:
+    if tecnologias_detectadas:
         print("\n Tecnologias possivelmente ultilizadas:")
         for tech in tecnologias_detectadas:
             print(" .", tech)
-else:
+    else:
         print("\n Nenhuma tecnologia detectada.")
 
 
+print("\nProcurando por e-mails na página...\n")
+
+emails_encontrados = re.findall(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+", html)
+
+if emails_encontrados:
+    print("E-mails encontrados:")
+    for email in set(emails_encontrados):
+        print(" .", email)
+
+else:
+    print("Nenhum e-mail encontrado.")

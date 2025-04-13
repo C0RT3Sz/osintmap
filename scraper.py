@@ -109,3 +109,43 @@ if emails_encontrados:
 
 else:
     print("Nenhum e-mail encontrado.")
+
+print("\n Coletando meta tags da página...\n")
+
+meta_tags = soup.find_all("meta")
+
+for tag in meta_tags:
+    if tag.get("name") in ["description", "keywords", "author"]:
+        print(f"{tag.get('name').capitalize()}: {tag.get('content')}")
+
+
+
+
+# 📝 Escrevendo tudo no resultado.txt
+with open("resultado.txt", "w", encoding="utf-8") as arquivo:
+    arquivo.write("🏰 OSINTMAP - Resultado da Varredura\n")
+    arquivo.write("="*40 + "\n\n")
+
+    # Título
+    arquivo.write("🎯 Título da Página:\n")
+    arquivo.write(f"{titulo}\n\n")
+
+    # Cabeçalhos
+    arquivo.write("📜 Cabeçalhos HTTP:\n")
+    for chave, valor in cabecalhos.items():
+        arquivo.write(f"{chave}: {valor}\n")
+    arquivo.write("\n")
+
+    # Tecnologias
+    arquivo.write("🧪 Tecnologias Detectadas:\n")
+    if tecnologias_detectadas:
+        for tech in tecnologias_detectadas:
+            arquivo.write(f"- {tech}\n")
+    else:
+        arquivo.write("Nenhuma tecnologia detectada.\n")
+    arquivo.write("\n")
+
+    # Links
+    arquivo.write("🔗 Links Encontrados:\n")
+    for link in links_encontrados:
+        arquivo.write(f"- {link}\n")

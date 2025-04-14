@@ -4,7 +4,7 @@ import re
 import time
 from bs4 import BeautifulSoup
 
-URL_BASE = "http://testphp.vulnweb.com/"
+URL_BASE = "http://books.toscrape.com/"
 
 # Requisição e Parsing da Página
 resposta = requests.get(URL_BASE)
@@ -147,3 +147,31 @@ if emails_encontrados:
         print(email)
 else:
     print("\nNenhum e-mail encontrado nas páginas.")
+
+# Busca por Arquivosde Interesse nas Páginas Internas
+print("\nBuscando arquivos de interesse nas páginas internas..")
+
+extensoes_arquivos = [".pdf", ".doc", ".xls", ".ppt", ".txt", ".csv"]
+
+arquivos_encontrados = []
+
+for links in links_internos:
+    try:
+        resposta_arquivos = requests.get(link, headers=headers, timeout=5)
+        html_arquivos = respostas_arquivos.text
+
+        for ext in extensoes_arquivos:
+            if ext in html_arquivos:
+                arquivos_encontrados.append(f"{link} → {ext}")
+
+        time.sleep(1)
+    except Exception as e:
+        print(f"Erro ao acessar {link}: {e}")
+
+if arquivos_encontrados:
+    print("\nArquivos encontrados:")
+    for arquivo in arquivos_encontrados:
+        print(" .", arquivo)
+
+else:
+    print("\nNenhum arquivo de interrese encontrado nas páginas.")
